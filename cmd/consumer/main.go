@@ -1,4 +1,4 @@
-package main
+package consumer
 
 import (
 	"encoding/json"
@@ -8,13 +8,7 @@ import (
 	"twitch_chat_analysis/util"
 )
 
-func main() {
-
-	consumeMessages()
-
-}
-
-func consumeMessages() {
+func ConsumeMessages() {
 	conn, err := amqp.Dial("amqp://user:password@localhost:7001/")
 	util.FailOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()

@@ -10,10 +10,12 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"twitch_chat_analysis/cmd/consumer"
 	"twitch_chat_analysis/util"
 )
 
 func main() {
+	go consumer.ConsumeMessages()
 	r := gin.Default()
 
 	r.GET("/test", func(c *gin.Context) {
@@ -31,7 +33,7 @@ func reportIssue(c *gin.Context) {
 	receiver := c.Request.URL.Query().Get("receiver")
 	log.Printf(sender + " " + receiver)
 	client := redis.NewClient(util.RedisOptions())
-	result, err := client.LRange(sender+"->"+receiver, 0, 1).Result()
+	result, err := client.LRange(sender+"->"+receiver, 0, 100).Result()
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, "redis errr")
 	}
