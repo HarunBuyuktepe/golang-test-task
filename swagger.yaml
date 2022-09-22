@@ -1,0 +1,18 @@
+
+/message/list:
+  get:
+    summary: ""
+    description: ""
+    parameters:
+      -
+        name: "sender"
+        type: "string"
+        in: "query"
+        description: ""
+        required: true
+      -
+        name: "receiver"
+        type: "string"
+        in: "query"
+        description: ""
+        required: true
